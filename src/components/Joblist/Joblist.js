@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Card } from 'semantic-ui-react'
+import { Button, Card, Modal, Image } from 'semantic-ui-react'
+import parse from 'html-react-parser'
 
 const Joblist = () => {
+  // if filter === true, set location in url
   const [jobList, setJobList] = useState([])
 
   const getJobs = async () => {
@@ -18,7 +20,6 @@ const Joblist = () => {
       .then(res => res.json())
       .then(data => setJobList([...data.data]))
   }
-
   useEffect(() => {
     getJobs()
   }, [])
@@ -36,6 +37,19 @@ const Joblist = () => {
           <Card.Description>
             {job.attributes.pitch}
           </Card.Description>
+          <Modal
+            trigger={<Button>Show Modal</Button>}
+            actions={['Snooze', { key: 'done', content: 'Done', positive: true }]}
+          >
+          <Modal.Header>
+            <Image src={job.attributes.picture.thumb} size='medium' rounded fluid floated='right'/>
+            {job.attributes.title}
+          </Modal.Header>
+          <Modal.Content>
+            {parse(job.attributes.body)}
+          </Modal.Content>
+            <Modal.Actions actions={[{ key: 'done', content: 'Done', positive: true }]}/>
+          </Modal>
         </Card.Content>
       </Card>
       )
