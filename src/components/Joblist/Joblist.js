@@ -39,7 +39,6 @@ const Joblist = () => {
             </Card.Description>
             <Modal
               trigger={<Button>Show Modal</Button>}
-              actions={['Snooze', { key: 'done', content: 'Done', positive: true }]}
             >
             <Modal.Header>
               <Image src={job.attributes.picture.thumb} size='medium' rounded floated='right'/>
