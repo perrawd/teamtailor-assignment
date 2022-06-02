@@ -4,19 +4,32 @@ import { Dropdown } from 'semantic-ui-react'
 const LocationFilter = () => {
   const [locations, setLocations] = useState([])
 
-  const handleClick = () => {
-    fetch(process.env.REACT_APP_LOCATION_URL, {
-      headers: {
-        method: 'GET',
+  let pages = true
+  let url = process.env.REACT_APP_LOCATION_URL
+
+  const handleClick = async () => {
+    if (locations.length > 0) return
+
+    while (pages) {
+      await fetch(url, {
         headers: {
-          'Content-Type': 'application/json'
-        },
-        Authorization: process.env.REACT_APP_TOKEN,
-        'X-Api-Version': process.env.REACT_APP_API_VERSION
-      }
-    })
-      .then(res => res.json())
-      .then(data => setLocations([...data.data]))
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          Authorization: process.env.REACT_APP_TOKEN,
+          'X-Api-Version': process.env.REACT_APP_API_VERSION
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          setLocations(prevState => [...prevState, ...data.data])
+          !('next' in data.links)
+            ? pages = false
+            : url = data.links.next
+          console.log(locations)
+        })
+    }
   }
 
   return (
