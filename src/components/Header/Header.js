@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Button } from 'semantic-ui-react'
 import LocationFilter from '../LocationFilter/LocationFilter.js'
 
-const Header = () => {
+// eslint-disable-next-line react/prop-types
+const Header = ({ setFilter, locations, setLocations }) => {
   const [showFilter, setShowFilter] = useState(false)
   const handleClick = () => {
     setShowFilter(!showFilter)
@@ -13,7 +14,12 @@ const Header = () => {
       <h1>TeamTailor JobList 🚀</h1>
       <Button color='green'>List All Jobs</Button>
       <Button color='blue' onClick={handleClick}>Filter</Button>
-      { showFilter && <LocationFilter/>}
+      { showFilter &&
+        <LocationFilter
+          setFilter={setFilter}
+          locations={locations}
+          setLocations={setLocations}/>
+      }
     </div>
   )
 }

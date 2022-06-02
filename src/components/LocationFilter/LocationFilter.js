@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Dropdown } from 'semantic-ui-react'
 
-const LocationFilter = () => {
-  const [locations, setLocations] = useState([])
-
+// eslint-disable-next-line react/prop-types
+const LocationFilter = ({ setFilter, locations, setLocations }) => {
   let pages = true
   let url = process.env.REACT_APP_LOCATION_URL
 
   const handleClick = async () => {
+    // eslint-disable-next-line react/prop-types
     if (locations.length > 0) return
 
     while (pages) {
@@ -37,6 +37,7 @@ const LocationFilter = () => {
       <Dropdown
         placeholder='Select Location'
         selection
+        // eslint-disable-next-line react/prop-types
         options={locations.map(location => ({
           key: location.attributes.city,
           text: location.attributes.city,
