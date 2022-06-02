@@ -29,31 +29,30 @@ const Joblist = () => {
   return (
     <div>
       { jobList.map(job =>
-      <Card key={job.id} fluid>
-        <Card.Content>
-          <Card.Header>
-            {job.attributes.title}
-          </Card.Header>
-          <Card.Description>
-            {job.attributes.pitch}
-          </Card.Description>
-          <Modal
-            trigger={<Button>Show Modal</Button>}
-            actions={['Snooze', { key: 'done', content: 'Done', positive: true }]}
-          >
-          <Modal.Header>
-            <Image src={job.attributes.picture.thumb} size='medium' rounded fluid floated='right'/>
-            {job.attributes.title}
-          </Modal.Header>
-          <Modal.Content>
-            {parse(job.attributes.body)}
-          </Modal.Content>
-            <Modal.Actions actions={[{ key: 'done', content: 'Done', positive: true }]}/>
-          </Modal>
-        </Card.Content>
-      </Card>
-      )
-      }
+        <Card key={job.id} fluid>
+          <Card.Content>
+            <Card.Header>
+              {job.attributes.title}
+            </Card.Header>
+            <Card.Description>
+              {job.attributes.pitch}
+            </Card.Description>
+            <Modal
+              trigger={<Button>Show Modal</Button>}
+              actions={['Snooze', { key: 'done', content: 'Done', positive: true }]}
+            >
+            <Modal.Header>
+              <Image src={job.attributes.picture.thumb} size='medium' rounded floated='right'/>
+              {job.attributes.title}
+            </Modal.Header>
+            <Modal.Content>
+              {parse(job.attributes.body)}
+            </Modal.Content>
+              <Modal.Actions actions={[{ key: 'done', content: 'Done', positive: true }]}/>
+            </Modal>
+          </Card.Content>
+        </Card>
+      )}
     </div>
   )
 }
