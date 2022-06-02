@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Card } from 'semantic-ui-react'
 
 const Joblist = () => {
   const [jobList, setJobList] = useState([])
@@ -26,6 +27,19 @@ const Joblist = () => {
 
   return (
     <div>
+      { jobList.map(job =>
+      <Card key={job.id} fluid>
+        <Card.Content>
+          <Card.Header>
+            {job.attributes.title}
+          </Card.Header>
+          <Card.Description>
+            {job.attributes.pitch}
+          </Card.Description>
+        </Card.Content>
+      </Card>
+      )
+      }
     </div>
   )
 }
