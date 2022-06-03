@@ -54,7 +54,9 @@ const LocationFilter = ({ setFilter, locationID, setLocationID }) => {
         onChange={handleFocus}
         style={{ marginTop: '10px' }}
       />
-      <Button basic color='blue' style={{ margin: '5px' }} onClick={() => setFilter(false)}>
+      <Button basic color='blue' style={{ margin: '5px' }} onClick={() => {
+        setFilter(false)
+      }}>
         Clear filter
       </Button>
     </div>

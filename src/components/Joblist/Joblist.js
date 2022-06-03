@@ -6,12 +6,15 @@ import MyFavourites from '../MyFavourites/MyFavourites.js'
 // eslint-disable-next-line react/prop-types
 const Joblist = ({ filter, locationID, setFavourites }) => {
   const [jobList, setJobList] = useState([])
+  const [next, setNext] = useState(null)
 
   let url = process.env.REACT_APP_LIST_URL
   // eslint-disable-next-line react/prop-types
   // if (filter && locationID.length > 0) url = url + `?filter[locations]=${locationID}`
 
   const getJobs = async () => {
+    filter && setJobList([])
+    next && (url = next)
     await fetch(url, {
       headers: {
         method: 'GET',
@@ -23,7 +26,15 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
       }
     })
       .then(res => res.json())
-      .then(data => setJobList([...data.data]))
+      .then(data => {
+        next
+          ? setJobList(prevJobs => [...prevJobs, ...data.data])
+          : setJobList([...data.data])
+        'next' in data.links
+          // eslint-disable-next-line no-return-assign
+          ? setNext(data.links.next)
+          : setNext(null)
+      })
   }
 
   useEffect(() => {
@@ -74,6 +85,7 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
           </Card.Content>
         </Card>
       )}
+      {next && <Button onClick={getJobs}>More jobs</Button>}
     </div>
   )
 }
