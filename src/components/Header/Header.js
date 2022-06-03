@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
-import { Button } from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react'
 import LocationFilter from '../LocationFilter/LocationFilter.js'
+import MyFavourites from '../MyFavourites/MyFavourites.js'
 
 // eslint-disable-next-line react/prop-types
-const Header = ({ setFilter, locationID, setLocationID }) => {
+const Header = ({ setFilter, locationID, setLocationID, favourites }) => {
+  const [open, setOpen] = React.useState(false)
   const [showFilter, setShowFilter] = useState(false)
   const handleClick = () => {
     setShowFilter(!showFilter)
@@ -20,6 +22,17 @@ const Header = ({ setFilter, locationID, setLocationID }) => {
           locationID={locationID}
           setLocationID={setLocationID}/>
       }
+      <Modal
+        onClose={() => setOpen(false)}
+        onOpen={() => setOpen(true)}
+        open={open}
+        trigger={<Button>Show Modal</Button>}
+      >
+      <Modal.Header>My Favourites</Modal.Header>
+      <Modal.Content>
+        <MyFavourites favourites={favourites}/>
+      </Modal.Content>
+      </Modal>
     </div>
   )
 }
