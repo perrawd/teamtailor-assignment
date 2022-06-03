@@ -4,12 +4,12 @@ import parse from 'html-react-parser'
 import MyFavourites from '../MyFavourites/MyFavourites.js'
 
 // eslint-disable-next-line react/prop-types
-const Joblist = ({ locationID, setFavourites }) => {
+const Joblist = ({ filter, locationID, setFavourites }) => {
   const [jobList, setJobList] = useState([])
 
   let url = process.env.REACT_APP_LIST_URL
   // eslint-disable-next-line react/prop-types
-  if (locationID.length > 0) url = url + `?filter[locations]=${locationID}`
+  if (filter && locationID.length > 0) url = url + `?filter[locations]=${locationID}`
 
   const getJobs = async () => {
     await fetch(url, {

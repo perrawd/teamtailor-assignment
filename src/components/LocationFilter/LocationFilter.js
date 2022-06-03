@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Button } from 'semantic-ui-react'
 
 // eslint-disable-next-line react/prop-types
 const LocationFilter = ({ setFilter, locationID, setLocationID }) => {
@@ -53,6 +53,9 @@ const LocationFilter = ({ setFilter, locationID, setLocationID }) => {
         onChange={handleFocus}
         style={{ marginTop: '10px' }}
       />
+      <Button basic color='blue' style={{ margin: '5px' }} onClick={() => setFilter(false)}>
+        Clear filter
+      </Button>
     </div>
   )
 }

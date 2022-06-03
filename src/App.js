@@ -4,8 +4,7 @@ import Header from './components/Header/Header.js'
 import Joblist from './components/Joblist/Joblist.js'
 
 const App = () => {
-  // if location === true, set location in url
-  const [filter, setFilter] = useState(null)
+  const [filter, setFilter] = useState(false)
   const [locationID, setLocationID] = useState([])
   const [favourites, setFavourites] = useState([])
 
