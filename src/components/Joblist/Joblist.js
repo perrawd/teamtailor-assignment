@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Card, Modal, Image } from 'semantic-ui-react'
+import { Button, Card, Modal, Image, Icon } from 'semantic-ui-react'
 import parse from 'html-react-parser'
 import MyFavourites from '../MyFavourites/MyFavourites.js'
 
@@ -48,7 +48,7 @@ const Joblist = ({ locationID, setFavourites }) => {
             <Card.Description>
               {job.attributes.pitch}
             </Card.Description>
-            <Modal trigger={<Button>Show Modal</Button>}>
+            <Modal trigger={<Button>Show Modal</Button>} closeIcon>
             <Modal.Header>
               <Image src={job.attributes.picture.thumb} size='medium' rounded floated='right'/>
               {job.attributes.title}
@@ -57,8 +57,10 @@ const Joblist = ({ locationID, setFavourites }) => {
             <Modal.Content>
               {parse(job.attributes.body)}
             </Modal.Content>
-              <Modal.Actions actions={[{ key: 'done', content: 'Done', positive: true }]}/>
-              <Button onClick={() => setFavourites(prevFavs => [...prevFavs, job])}>Fav</Button>
+              <Modal.Actions>
+              <Button onClick={() => setFavourites(prevFavs => [...prevFavs, job])} color='green'>
+            <Icon name='like' color='red'/>Add to my favourites</Button>
+            </Modal.Actions>
             </Modal>
           </Card.Content>
         </Card>

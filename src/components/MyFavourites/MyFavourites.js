@@ -9,7 +9,7 @@ const MyFavourites = ({ favourites }) => {
 
   return (
     <div>
-      <List divided verticalAlign='middle' size='large' relaxed='very'>
+      <List divided verticalAlign='middle' size='large' relaxed='very' style={{ textAlign: 'center' }}>
       {
         // eslint-disable-next-line react/prop-types
         favourites

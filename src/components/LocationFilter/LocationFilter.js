@@ -51,6 +51,7 @@ const LocationFilter = ({ setFilter, locationID, setLocationID }) => {
         }))}
         onClick={handleClick}
         onChange={handleFocus}
+        style={{ marginTop: '10px' }}
       />
     </div>
   )
