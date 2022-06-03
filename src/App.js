@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Container } from 'semantic-ui-react'
 import Header from './components/Header/Header.js'
 import Joblist from './components/Joblist/Joblist.js'
+import Footer from './components/Footer/Footer.js'
 
 const App = () => {
   const [filter, setFilter] = useState(false)
@@ -19,6 +20,7 @@ const App = () => {
         />
         <Joblist filter={filter} locationID={locationID} setFavourites={setFavourites}/>
       </Container>
+      <Footer/>
     </div>
   )
 }
