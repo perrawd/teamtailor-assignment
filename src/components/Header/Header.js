@@ -8,7 +8,6 @@ const Header = ({ setFilter, locationID, setLocationID, favourites }) => {
   const [open, setOpen] = React.useState(false)
   const [showFilter, setShowFilter] = useState(false)
   const handleClick = () => {
-    setFilter(true)
     setShowFilter(!showFilter)
   }
 

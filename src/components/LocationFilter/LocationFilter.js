@@ -35,6 +35,7 @@ const LocationFilter = ({ setFilter, locationID, setLocationID }) => {
   }
 
   const handleFocus = async (event, element) => {
+    setFilter(true)
     setLocationID(element.value)
   }
 

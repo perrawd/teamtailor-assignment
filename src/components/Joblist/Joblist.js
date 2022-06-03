@@ -9,7 +9,7 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
 
   let url = process.env.REACT_APP_LIST_URL
   // eslint-disable-next-line react/prop-types
-  if (filter && locationID.length > 0) url = url + `?filter[locations]=${locationID}`
+  // if (filter && locationID.length > 0) url = url + `?filter[locations]=${locationID}`
 
   const getJobs = async () => {
     await fetch(url, {
@@ -27,8 +27,12 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
   }
 
   useEffect(() => {
+    if (filter === true) {
+      // eslint-disable-next-line react/prop-types
+      url = url + `?filter[locations]=${locationID}`
+    }
     getJobs()
-  }, [locationID])
+  }, [filter, locationID])
 
   // eslint-disable-next-line no-unused-vars
   const addFavourite = (event, element) => {
