@@ -7,6 +7,7 @@ const App = () => {
   // if location === true, set location in url
   const [filter, setFilter] = useState(null)
   const [locationID, setLocationID] = useState([])
+  const [favourites, setFavourites] = useState([])
 
   return (
     <div className="App">
@@ -15,8 +16,9 @@ const App = () => {
           setFilter={setFilter}
           locationID={locationID}
           setLocationID={setLocationID}
+          favourites={favourites}
         />
-        <Joblist filter={filter} locationID={locationID}/>
+        <Joblist filter={filter} locationID={locationID} setFavourites={setFavourites}/>
       </Container>
     </div>
   )

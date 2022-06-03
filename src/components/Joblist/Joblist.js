@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Modal, Image } from 'semantic-ui-react'
 import parse from 'html-react-parser'
+import MyFavourites from '../MyFavourites/MyFavourites.js'
 
 // eslint-disable-next-line react/prop-types
-const Joblist = ({ locationID }) => {
+const Joblist = ({ locationID, setFavourites }) => {
   const [jobList, setJobList] = useState([])
+
   let url = process.env.REACT_APP_LIST_URL
   // eslint-disable-next-line react/prop-types
   if (locationID.length > 0) url = url + `?filter[locations]=${locationID}`
@@ -23,14 +25,20 @@ const Joblist = ({ locationID }) => {
       .then(res => res.json())
       .then(data => setJobList([...data.data]))
   }
+
   useEffect(() => {
     getJobs()
   }, [locationID])
 
-  console.log(jobList)
+  // eslint-disable-next-line no-unused-vars
+  const addFavourite = (event, element) => {
+    console.log(event.target.parentElement)
+    setFavourites(prevFavs => [...prevFavs, event.target.parentElement.outerHTML])
+  }
 
   return (
     <div>
+      <MyFavourites/>
       { jobList.map(job =>
         <Card key={job.id} fluid>
           <Card.Content>
@@ -40,17 +48,17 @@ const Joblist = ({ locationID }) => {
             <Card.Description>
               {job.attributes.pitch}
             </Card.Description>
-            <Modal
-              trigger={<Button>Show Modal</Button>}
-            >
+            <Modal trigger={<Button>Show Modal</Button>}>
             <Modal.Header>
               <Image src={job.attributes.picture.thumb} size='medium' rounded floated='right'/>
               {job.attributes.title}
+              <p style={{ fontSize: '12px', fontweight: 'normal' }}>{job.attributes.pitch}</p>
             </Modal.Header>
             <Modal.Content>
               {parse(job.attributes.body)}
             </Modal.Content>
               <Modal.Actions actions={[{ key: 'done', content: 'Done', positive: true }]}/>
+              <Button onClick={() => setFavourites(prevFavs => [...prevFavs, job])}>Fav</Button>
             </Modal>
           </Card.Content>
         </Card>
