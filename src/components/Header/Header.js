@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Modal, Icon } from 'semantic-ui-react'
+import { Button, Modal, Icon, Image } from 'semantic-ui-react'
 import LocationFilter from '../LocationFilter/LocationFilter.js'
 import MyFavourites from '../MyFavourites/MyFavourites.js'
 
@@ -13,7 +13,8 @@ const Header = ({ setFilter, locationID, setLocationID, favourites }) => {
 
   return (
     <div>
-      <h1>TeamTailor JobList 🚀</h1>
+      <Image src='./teamtailor-logo.png' size='tiny' floated='left'/>
+      <h3>Joblist Assignment 🚀</h3>
       <Modal
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}

@@ -15,8 +15,8 @@ const MyFavourites = ({ favourites }) => {
         favourites
           // eslint-disable-next-line react/prop-types
           ? favourites.map((favourite, index) => (
-            <List.Item key={index}>
-              <Modal trigger={<div><Image avatar src={favourite.attributes.picture.thumb} />{favourite.attributes.title}</div>}>
+            <List.Item key={index} as='a'>
+              <Modal closeIcon trigger={<div><Image avatar src={favourite.attributes.picture.thumb} />{favourite.attributes.title}</div>}>
             <Modal.Header>
               <Image src={favourite.attributes.picture.thumb} size='medium' rounded floated='right'/>
               {favourite.attributes.title}

@@ -52,13 +52,18 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
             <Card.Description>
               {job.attributes.pitch}
             </Card.Description>
-            <Modal trigger={<Button>Show Modal</Button>} closeIcon>
+            <Modal trigger={<Button
+              size='tiny'
+              basic
+              color='green'
+              style={{ marginTop: '10px' }}
+              >Show more</Button>} closeIcon>
             <Modal.Header>
               <Image src={job.attributes.picture.thumb} size='medium' rounded floated='right'/>
               {job.attributes.title}
               <p style={{ fontSize: '12px', fontweight: 'normal' }}>{job.attributes.pitch}</p>
             </Modal.Header>
-            <Modal.Content>
+            <Modal.Content scrolling>
               {parse(job.attributes.body)}
             </Modal.Content>
               <Modal.Actions>
