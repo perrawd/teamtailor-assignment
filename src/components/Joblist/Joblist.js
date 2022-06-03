@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { Button, Card, Modal, Image } from 'semantic-ui-react'
 import parse from 'html-react-parser'
 
-const Joblist = () => {
-  // if filter === true, set location in url
+// eslint-disable-next-line react/prop-types
+const Joblist = ({ locationID }) => {
   const [jobList, setJobList] = useState([])
+  let url = process.env.REACT_APP_LIST_URL
+  // eslint-disable-next-line react/prop-types
+  if (locationID.length > 0) url = url + `?filter[locations]=${locationID}`
 
   const getJobs = async () => {
-    await fetch(process.env.REACT_APP_LIST_URL, {
+    await fetch(url, {
       headers: {
         method: 'GET',
         headers: {
@@ -22,7 +25,7 @@ const Joblist = () => {
   }
   useEffect(() => {
     getJobs()
-  }, [])
+  }, [locationID])
 
   console.log(jobList)
 

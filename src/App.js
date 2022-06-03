@@ -6,17 +6,17 @@ import Joblist from './components/Joblist/Joblist.js'
 const App = () => {
   // if location === true, set location in url
   const [filter, setFilter] = useState(null)
-  const [locations, setLocations] = useState([])
+  const [locationID, setLocationID] = useState([])
 
   return (
     <div className="App">
       <Container text>
         <Header
           setFilter={setFilter}
-          locations={locations}
-          setLocations={setLocations}
+          locationID={locationID}
+          setLocationID={setLocationID}
         />
-        <Joblist filter={filter}/>
+        <Joblist filter={filter} locationID={locationID}/>
       </Container>
     </div>
   )

@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Dropdown } from 'semantic-ui-react'
 
 // eslint-disable-next-line react/prop-types
-const LocationFilter = ({ setFilter, locations, setLocations }) => {
+const LocationFilter = ({ setFilter, locationID, setLocationID }) => {
+  const [locations, setLocations] = useState([])
   let pages = true
   let url = process.env.REACT_APP_LOCATION_URL
 
   const handleClick = async () => {
+    console.log('click')
     // eslint-disable-next-line react/prop-types
     if (locations.length > 0) return
 
@@ -32,6 +34,10 @@ const LocationFilter = ({ setFilter, locations, setLocations }) => {
     }
   }
 
+  const handleFocus = async (event, element) => {
+    setLocationID(element.value)
+  }
+
   return (
     <div>
       <Dropdown
@@ -41,9 +47,10 @@ const LocationFilter = ({ setFilter, locations, setLocations }) => {
         options={locations.map(location => ({
           key: location.attributes.city,
           text: location.attributes.city,
-          value: location.attributes.city
+          value: location.id
         }))}
         onClick={handleClick}
+        onChange={handleFocus}
       />
     </div>
   )
