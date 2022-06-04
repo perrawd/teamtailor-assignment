@@ -9,11 +9,10 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
 
   let url = process.env.REACT_APP_LIST_URL
 
-  const getJobs = async () => {
+  const getJobs = async (url) => {
     // If a filter is applied, clear the list.
     filter && setJobList([])
-    // If there are next pages in API, set the URL to the next page.
-    next && (url = next)
+
     await fetch(url, {
       headers: {
         method: 'GET',
@@ -37,7 +36,7 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
 
   useEffect(() => {
     if (filter && !!locationID) url = url + `?filter[locations]=${locationID}`
-    getJobs()
+    getJobs(url)
   }, [filter, locationID])
 
   return (
@@ -69,14 +68,17 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
               {parse(job.attributes.body)}
             </Modal.Content>
               <Modal.Actions>
-              <Button onClick={() => setFavourites(prevFavs => [...prevFavs, job])} color='green'>
+              <Button
+                onClick={() => setFavourites(prevFavs => [...prevFavs, job])}
+                color='green'
+              >
             <Icon name='like' color='red'/>Add to my favourites</Button>
             </Modal.Actions>
             </Modal>
           </Card.Content>
         </Card>
       )}
-      {next && <Button onClick={getJobs}>More jobs</Button>}
+      {next && <Button onClick={() => getJobs(next)}>More jobs</Button>}
     </div>
   )
 }
