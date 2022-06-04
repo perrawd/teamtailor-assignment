@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Card, Modal, Image, Icon } from 'semantic-ui-react'
+import { Button, Card, Modal, Image, Icon, Message } from 'semantic-ui-react'
 import parse from 'html-react-parser'
 import MyFavourites from '../MyFavourites/MyFavourites.js'
 
@@ -42,7 +42,8 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
   return (
     <div>
       <MyFavourites/>
-      { jobList.map(job =>
+      { jobList.length > 0
+        ? jobList.map(job =>
         <Card key={job.id} fluid>
           <Card.Content>
             <Card.Header>
@@ -77,7 +78,13 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
             </Modal>
           </Card.Content>
         </Card>
-      )}
+        )
+        : <Message
+            icon='suitcase'
+            header='No jobs found!'
+            content='No jobs was found for this query.'
+          />
+        }
       {next && <Button onClick={() => getJobs(next)}>More jobs</Button>}
     </div>
   )
