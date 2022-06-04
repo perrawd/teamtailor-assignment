@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Dropdown, Button } from 'semantic-ui-react'
 
-const LocationFilter = ({ setFilter, setLocationID }) => {
+const LocationFilter = ({ setFilter, setLocationID, setShowFilter }) => {
   const [locations, setLocations] = useState([])
   let pages = true
   let url = process.env.REACT_APP_LOCATION_URL
@@ -55,6 +55,7 @@ const LocationFilter = ({ setFilter, setLocationID }) => {
         style={{ margin: '5px' }}
         onClick={() => {
           setFilter(false)
+          setShowFilter(false)
         }
       }>
         Clear filter

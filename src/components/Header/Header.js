@@ -3,7 +3,7 @@ import { Button, Modal, Icon, Image, Message } from 'semantic-ui-react'
 import LocationFilter from '../LocationFilter/LocationFilter.js'
 import MyFavourites from '../MyFavourites/MyFavourites.js'
 
-const Header = ({ setFilter, locationID, setLocationID, favourites }) => {
+const Header = ({ setFilter, setLocationID, favourites }) => {
   const [open, setOpen] = React.useState(false)
   const [showFilter, setShowFilter] = useState(false)
 
@@ -41,7 +41,7 @@ const Header = ({ setFilter, locationID, setLocationID, favourites }) => {
       { showFilter &&
         <LocationFilter
           setFilter={setFilter}
-          locationID={locationID}
+          setShowFilter={setShowFilter}
           setLocationID={setLocationID}/>
       }
     </div>

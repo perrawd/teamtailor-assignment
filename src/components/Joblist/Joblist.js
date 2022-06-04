@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Card, Modal, Image, Icon, Message } from 'semantic-ui-react'
+import { Button, Card, Modal, Image, Icon, Message, Transition } from 'semantic-ui-react'
 import parse from 'html-react-parser'
 import MyFavourites from '../MyFavourites/MyFavourites.js'
 
@@ -79,11 +79,13 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
           </Card.Content>
         </Card>
         )
-        : <Message
-            icon='suitcase'
-            header='No jobs found!'
-            content='No jobs was found for this query.'
-          />
+        : <Transition transitionOnMount={true} animation='fade' duration={5000}>
+            <Message
+              icon='suitcase'
+              header='No jobs found!'
+              content='No jobs was found for this query.'
+            />
+          </Transition>
         }
       {next && <Button onClick={() => getJobs(next)}>More jobs</Button>}
     </div>
