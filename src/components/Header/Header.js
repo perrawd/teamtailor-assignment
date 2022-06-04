@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { Button, Modal, Icon, Image } from 'semantic-ui-react'
+import { Button, Modal, Icon, Image, Message } from 'semantic-ui-react'
 import LocationFilter from '../LocationFilter/LocationFilter.js'
 import MyFavourites from '../MyFavourites/MyFavourites.js'
 
-// eslint-disable-next-line react/prop-types
 const Header = ({ setFilter, locationID, setLocationID, favourites }) => {
   const [open, setOpen] = React.useState(false)
   const [showFilter, setShowFilter] = useState(false)
+
   const handleClick = () => {
     setShowFilter(!showFilter)
   }
@@ -27,7 +27,14 @@ const Header = ({ setFilter, locationID, setLocationID, favourites }) => {
       >
       <Modal.Header style={{ textAlign: 'center' }}>My Favourites</Modal.Header>
       <Modal.Content>
-        <MyFavourites favourites={favourites}/>
+        {favourites > 0
+          ? <MyFavourites favourites={favourites}/>
+          : <Message
+              icon='inbox'
+              header='No favourites yet!'
+              content='You have not added any ads to your favourites yet!'
+          />
+        }
       </Modal.Content>
       </Modal>
       <Button color='blue' onClick={handleClick}>Filter by Location</Button>

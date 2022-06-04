@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
 import { Dropdown, Button } from 'semantic-ui-react'
 
-// eslint-disable-next-line react/prop-types
-const LocationFilter = ({ setFilter, locationID, setLocationID }) => {
+const LocationFilter = ({ setFilter, setLocationID }) => {
   const [locations, setLocations] = useState([])
   let pages = true
   let url = process.env.REACT_APP_LOCATION_URL
 
   const handleClick = async () => {
-    console.log('click')
-    // eslint-disable-next-line react/prop-types
     if (locations.length > 0) return
 
     while (pages) {
@@ -29,14 +26,13 @@ const LocationFilter = ({ setFilter, locationID, setLocationID }) => {
           !('next' in data.links)
             ? pages = false
             : url = data.links.next
-          console.log(locations)
         })
     }
   }
 
-  const handleFocus = async (event, element) => {
-    setFilter(true)
+  const handleChange = async (event, element) => {
     setLocationID(element.value)
+    setFilter(true)
   }
 
   return (
@@ -44,19 +40,23 @@ const LocationFilter = ({ setFilter, locationID, setLocationID }) => {
       <Dropdown
         placeholder='Select Location'
         selection
-        // eslint-disable-next-line react/prop-types
         options={locations.map(location => ({
           key: location.attributes.city,
           text: location.attributes.city,
           value: location.id
         }))}
         onClick={handleClick}
-        onChange={handleFocus}
+        onChange={handleChange}
         style={{ marginTop: '10px' }}
       />
-      <Button basic color='blue' style={{ margin: '5px' }} onClick={() => {
-        setFilter(false)
-      }}>
+      <Button
+        basic
+        color='blue'
+        style={{ margin: '5px' }}
+        onClick={() => {
+          setFilter(false)
+        }
+      }>
         Clear filter
       </Button>
     </div>

@@ -2,12 +2,19 @@
   "plugins": [
     "react"
   ],
-  "extends": ["standard", "plugin:react/recommended"],
+  "extends": [
+    "standard",
+    "plugin:react/recommended"
+  ],
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": 2017
   },
 "env": {
     "es6": true
+  },
+"rules": {
+    "react/prop-types": 0,
+    "no-return-assign": 0
   }
 }

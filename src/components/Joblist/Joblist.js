@@ -3,17 +3,16 @@ import { Button, Card, Modal, Image, Icon } from 'semantic-ui-react'
 import parse from 'html-react-parser'
 import MyFavourites from '../MyFavourites/MyFavourites.js'
 
-// eslint-disable-next-line react/prop-types
 const Joblist = ({ filter, locationID, setFavourites }) => {
   const [jobList, setJobList] = useState([])
   const [next, setNext] = useState(null)
 
   let url = process.env.REACT_APP_LIST_URL
-  // eslint-disable-next-line react/prop-types
-  // if (filter && locationID.length > 0) url = url + `?filter[locations]=${locationID}`
 
   const getJobs = async () => {
+    // If a filter is applied, clear the list.
     filter && setJobList([])
+    // If there are next pages in API, set the URL to the next page.
     next && (url = next)
     await fetch(url, {
       headers: {
@@ -31,25 +30,15 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
           ? setJobList(prevJobs => [...prevJobs, ...data.data])
           : setJobList([...data.data])
         'next' in data.links
-          // eslint-disable-next-line no-return-assign
           ? setNext(data.links.next)
           : setNext(null)
       })
   }
 
   useEffect(() => {
-    if (filter === true) {
-      // eslint-disable-next-line react/prop-types
-      url = url + `?filter[locations]=${locationID}`
-    }
+    if (filter && !!locationID) url = url + `?filter[locations]=${locationID}`
     getJobs()
   }, [filter, locationID])
-
-  // eslint-disable-next-line no-unused-vars
-  const addFavourite = (event, element) => {
-    console.log(event.target.parentElement)
-    setFavourites(prevFavs => [...prevFavs, event.target.parentElement.outerHTML])
-  }
 
   return (
     <div>
@@ -63,12 +52,14 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
             <Card.Description>
               {job.attributes.pitch}
             </Card.Description>
-            <Modal trigger={<Button
-              size='tiny'
-              basic
-              color='green'
-              style={{ marginTop: '10px' }}
-              >Show more</Button>} closeIcon>
+            <Modal trigger={
+              <Button
+                size='tiny'
+                basic
+                color='green'
+                style={{ marginTop: '10px' }}
+                >Show more
+              </Button>} closeIcon>
             <Modal.Header>
               <Image src={job.attributes.picture.thumb} size='medium' rounded floated='right'/>
               {job.attributes.title}

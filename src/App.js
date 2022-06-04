@@ -6,7 +6,7 @@ import Footer from './components/Footer/Footer.js'
 
 const App = () => {
   const [filter, setFilter] = useState(false)
-  const [locationID, setLocationID] = useState([])
+  const [locationID, setLocationID] = useState(null)
   const [favourites, setFavourites] = useState([])
 
   return (
@@ -18,7 +18,11 @@ const App = () => {
           setLocationID={setLocationID}
           favourites={favourites}
         />
-        <Joblist filter={filter} locationID={locationID} setFavourites={setFavourites}/>
+        <Joblist
+          filter={filter}
+          locationID={locationID}
+          setFavourites={setFavourites}
+        />
       </Container>
       <Footer/>
     </div>

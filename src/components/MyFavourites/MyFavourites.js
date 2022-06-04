@@ -1,34 +1,45 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { List, Modal, Image } from 'semantic-ui-react'
 import parse from 'html-react-parser'
 
-// eslint-disable-next-line react/prop-types
 const MyFavourites = ({ favourites }) => {
-  // eslint-disable-next-line no-unused-vars
-  const [activeIndex, setActiveIndex] = useState(null)
-
   return (
     <div>
-      <List divided verticalAlign='middle' size='large' relaxed='very' style={{ textAlign: 'center' }}>
+      <List
+        divided
+        verticalAlign='middle'
+        size='large'
+        relaxed='very'
+        style={{ textAlign: 'center' }}
+      >
       {
-        // eslint-disable-next-line react/prop-types
-        favourites
-          // eslint-disable-next-line react/prop-types
-          ? favourites.map((favourite, index) => (
+        favourites && favourites.map((favourite, index) => (
             <List.Item key={index} as='a'>
-              <Modal closeIcon trigger={<div><Image avatar src={favourite.attributes.picture.thumb} />{favourite.attributes.title}</div>}>
+              <Modal closeIcon trigger={
+                <div>
+                  <Image
+                    avatar
+                    src={favourite.attributes.picture.thumb}
+                  />
+                  {favourite.attributes.title}
+                </div>}>
             <Modal.Header>
-              <Image src={favourite.attributes.picture.thumb} size='medium' rounded floated='right'/>
+              <Image src={favourite.attributes.picture.thumb}
+                size='medium'
+                rounded
+                floated='right'
+              />
               {favourite.attributes.title}
-              <p style={{ fontSize: '12px', fontweight: 'normal' }}>{favourite.attributes.pitch}</p>
+              <p style={{ fontSize: '12px', fontweight: 'normal' }}>
+                {favourite.attributes.pitch}
+              </p>
             </Modal.Header>
             <Modal.Content scrolling>
               {parse(favourite.attributes.body)}
             </Modal.Content>
               </Modal>
             </List.Item>
-          ))
-          : console.log('nothing here')
+        ))
       }
       </List>
     </div>
