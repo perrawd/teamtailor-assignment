@@ -27,7 +27,7 @@ const Header = ({ setFilter, locationID, setLocationID, favourites }) => {
       >
       <Modal.Header style={{ textAlign: 'center' }}>My Favourites</Modal.Header>
       <Modal.Content>
-        {favourites > 0
+        {favourites.length > 0
           ? <MyFavourites favourites={favourites}/>
           : <Message
               icon='inbox'
