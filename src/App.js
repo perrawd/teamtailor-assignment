@@ -1,9 +1,19 @@
+/**
+ * App component.
+ *
+ * @author Per Rawdin
+ * @version 1.0.0
+ */
 import React, { useState } from 'react'
 import { Container } from 'semantic-ui-react'
 import Header from './components/Header/Header.js'
 import Joblist from './components/Joblist/Joblist.js'
 import Footer from './components/Footer/Footer.js'
 
+/**
+  * App component.
+  * @returns {React.ReactElement} App element.
+  */
 const App = () => {
   const [filter, setFilter] = useState(false)
   const [locationID, setLocationID] = useState(null)

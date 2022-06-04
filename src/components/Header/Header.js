@@ -1,12 +1,30 @@
+/**
+ * Header component.
+ *
+ * @author Per Rawdin
+ * @version 1.0.0
+ */
 import React, { useState } from 'react'
 import { Button, Modal, Icon, Image, Message } from 'semantic-ui-react'
 import LocationFilter from '../LocationFilter/LocationFilter.js'
 import MyFavourites from '../MyFavourites/MyFavourites.js'
 
+/**
+  * LocationFilter component.
+  *
+  * @param {React.setState<boolean>} setFilter Set filter state.
+  * @param {React.setState<string>} setLocationID Set location ID state.
+  * @param {Array<object>} favourites Set showFilter state.
+  * @returns {React.ReactElement} Header element and MyFavourites component.
+  */
 const Header = ({ setFilter, setLocationID, favourites }) => {
   const [open, setOpen] = React.useState(false)
   const [showFilter, setShowFilter] = useState(false)
 
+  /**
+  * handleClick method.
+  * @returns {void} Set showFilter state.
+  */
   const handleClick = () => {
     setShowFilter(!showFilter)
   }
@@ -15,6 +33,7 @@ const Header = ({ setFilter, setLocationID, favourites }) => {
     <div>
       <Image src='./teamtailor-logo.png' size='tiny' floated='left'/>
       <h3>Joblist Assignment 🚀</h3>
+      {/* MyFavourites component */}
       <Modal
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
@@ -37,6 +56,7 @@ const Header = ({ setFilter, setLocationID, favourites }) => {
         }
       </Modal.Content>
       </Modal>
+      {/* Filter component */}
       <Button color='blue' onClick={handleClick}>Filter by Location</Button>
       { showFilter &&
         <LocationFilter

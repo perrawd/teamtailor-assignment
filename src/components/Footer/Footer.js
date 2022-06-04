@@ -1,5 +1,15 @@
+/**
+ * Footer component.
+ *
+ * @author Per Rawdin
+ * @version 1.0.0
+ */
 import React from 'react'
 
+/**
+  * Footer component.
+  * @returns {React.ReactElement} Footer element.
+  */
 const Footer = () => {
   return (
     <div style={

@@ -1,14 +1,30 @@
+/**
+ * LocationFilter component.
+ *
+ * @author Per Rawdin
+ * @version 1.0.0
+ */
 import React, { useState } from 'react'
 import { Dropdown, Button } from 'semantic-ui-react'
 
+/**
+  * LocationFilter component.
+  *
+  * @param {React.setState<boolean>} setFilter Set filter state.
+  * @param {React.setState<string>} setLocationID Set location ID state.
+  * @param {React.setState<boolean>} setShowFilter Set showFilter state.
+  * @returns {React.ReactElement} Location filter drop-down menu.
+  */
 const LocationFilter = ({ setFilter, setLocationID, setShowFilter }) => {
   const [locations, setLocations] = useState([])
+
   let pages = true
   let url = process.env.REACT_APP_LOCATION_URL
 
   const handleClick = async () => {
     if (locations.length > 0) return
 
+    /* Pagination, while there are pages available, fetch results from every page. */
     while (pages) {
       await fetch(url, {
         headers: {
@@ -28,7 +44,9 @@ const LocationFilter = ({ setFilter, setLocationID, setShowFilter }) => {
           }
         })
         .then(data => {
+          /* Append results to list. */
           setLocations(prevState => [...prevState, ...data.data])
+          /* Verify if there are more pages. */
           !('next' in data.links)
             ? pages = false
             : url = data.links.next
@@ -49,6 +67,7 @@ const LocationFilter = ({ setFilter, setLocationID, setShowFilter }) => {
     }
   }
 
+  /* Set location state when user selects a location. */
   const handleChange = async (event, element) => {
     setLocationID(element.value)
     setFilter(true)
