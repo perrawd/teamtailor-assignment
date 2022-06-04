@@ -5,8 +5,8 @@
  * @version 1.0.0
  */
 import React, { useEffect, useState } from 'react'
-import { Button, Card, Modal, Image, Icon, Message, Transition } from 'semantic-ui-react'
-import parse from 'html-react-parser'
+import { Button, Card, Message, Transition } from 'semantic-ui-react'
+import JobAd from '../JobAd/JobAd.js'
 import MyFavourites from '../MyFavourites/MyFavourites.js'
 
 /**
@@ -92,30 +92,7 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
               {job.attributes.pitch}
             </Card.Description>
             {/* Specific ad view additional information. */}
-            <Modal trigger={
-              <Button
-                size='tiny'
-                basic
-                color='green'
-                style={{ marginTop: '10px' }}
-                >Show more
-              </Button>} closeIcon>
-            <Modal.Header>
-              <Image src={job.attributes.picture.thumb} size='medium' rounded floated='right'/>
-              {job.attributes.title}
-              <p style={{ fontSize: '12px', fontweight: 'normal' }}>{job.attributes.pitch}</p>
-            </Modal.Header>
-            <Modal.Content scrolling>
-              {parse(job.attributes.body)}
-            </Modal.Content>
-              <Modal.Actions>
-              <Button
-                onClick={() => setFavourites(prevFavs => [...prevFavs, job])}
-                color='green'
-              >
-            <Icon name='like' color='red'/>Add to my favourites</Button>
-            </Modal.Actions>
-            </Modal>
+            <JobAd job={job} setFavourites={setFavourites}/>
           </Card.Content>
         </Card>
         )
