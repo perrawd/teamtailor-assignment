@@ -6,6 +6,7 @@ import MyFavourites from '../MyFavourites/MyFavourites.js'
 const Joblist = ({ filter, locationID, setFavourites }) => {
   const [jobList, setJobList] = useState([])
   const [next, setNext] = useState(null)
+  const [fetchError, setfetchError] = useState(false)
 
   let url = process.env.REACT_APP_LIST_URL
 
@@ -23,7 +24,13 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
         'X-Api-Version': process.env.REACT_APP_API_VERSION
       }
     })
-      .then(res => res.json())
+      .then(response => {
+        if (!response.ok) {
+          throw Error(response.statusText)
+        } else {
+          return response.json()
+        }
+      })
       .then(data => {
         next
           ? setJobList(prevJobs => [...prevJobs, ...data.data])
@@ -31,6 +38,10 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
         'next' in data.links
           ? setNext(data.links.next)
           : setNext(null)
+      })
+      .catch(error => {
+        setfetchError(error.message)
+        console.error(error)
       })
   }
 
@@ -40,7 +51,12 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
   }, [filter, locationID])
 
   return (
-    <div>
+    fetchError
+      ? <Message negative>
+            <Message.Header>An Error occured when fetching the data.</Message.Header>
+            <p>{`Error message: ${fetchError}`}</p>
+          </Message>
+      : <div>
       <MyFavourites/>
       { jobList.length > 0
         ? jobList.map(job =>
@@ -88,8 +104,7 @@ const Joblist = ({ filter, locationID, setFavourites }) => {
           </Transition>
         }
       {next && <Button onClick={() => getJobs(next)}>More jobs</Button>}
-    </div>
-  )
+    </div>)
 }
 
 export default Joblist

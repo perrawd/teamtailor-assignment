@@ -20,12 +20,31 @@ const LocationFilter = ({ setFilter, setLocationID, setShowFilter }) => {
           'X-Api-Version': process.env.REACT_APP_API_VERSION
         }
       })
-        .then(res => res.json())
+        .then(response => {
+          if (!response.ok) {
+            throw Error(response.statusText)
+          } else {
+            return response.json()
+          }
+        })
         .then(data => {
           setLocations(prevState => [...prevState, ...data.data])
           !('next' in data.links)
             ? pages = false
             : url = data.links.next
+        })
+        .catch(error => {
+          pages = false
+          setLocations([
+            {
+              id: null,
+              attributes: {
+                name: `Error fetching values: ${error.message}`,
+                value: error.message
+              }
+            }
+          ])
+          console.error(error)
         })
     }
   }
@@ -42,7 +61,7 @@ const LocationFilter = ({ setFilter, setLocationID, setShowFilter }) => {
         selection
         options={locations.map(location => ({
           key: location.attributes.city,
-          text: location.attributes.city,
+          text: location.attributes.name || location.attributes.city,
           value: location.id
         }))}
         onClick={handleClick}
